@@ -35,10 +35,12 @@ const Sidemenu = () => {
     }
     storageService.setWhitelisted(newWhitelisted);
     const bgaData = e.target.elements.bgaData.value;
-    if (!bgaData) {
-      storageService.setData(parseBgaData(bgaData));
-    }
-    window.location.reload();
+    try {
+      if (!!bgaData) {
+        storageService.setData(parseBgaData(JSON.parse(bgaData).data));
+        window.location.reload();
+      }
+    } catch (error) {}
   };
 
   return (

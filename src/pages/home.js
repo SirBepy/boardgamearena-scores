@@ -1,12 +1,11 @@
 import React, { useMemo } from "react";
-import { parseBgaData } from "../utils/parser";
 import { AllCategories, AllStats, ContentWrapper, Stat } from "../components";
 import storageService from "../utils/storageService";
 
 function App() {
   const { totalWins, randomWins, parsedData, numOfGames } = useMemo(() => {
     const whitelistedPlayers = storageService.getWhiteListed();
-    const parsedData = Object.values(parseBgaData());
+    const parsedData = Object.values(storageService.getData());
 
     const totalWins = {};
     const randomWins = {};

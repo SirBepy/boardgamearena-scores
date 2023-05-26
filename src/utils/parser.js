@@ -1,13 +1,11 @@
-import fullData from "../data";
 import storageService from "./storageService";
 
 const parser = new DOMParser();
-const { data } = fullData;
 
 const blacklistedGames = ["Pandemic"];
 const whitelistedPlayers = storageService.getWhiteListed();
 
-const getTags = (index) => {
+const getTags = (data, index) => {
   const parsedDocument = parser.parseFromString(data[index]?.html, "text/html");
   const gameNameTags = parsedDocument.getElementsByClassName("gamename");
   const scoreEntryTags =
@@ -43,11 +41,11 @@ const addWin = (wins, name) => {
   };
 };
 
-export const parseBgaData = () => {
+export const parseBgaData = (data) => {
   const newParsedData = {};
 
   for (let index = 0; index < data.length; index++) {
-    const { gameNameTags, scoreEntryTags } = getTags(index);
+    const { gameNameTags, scoreEntryTags } = getTags(data, index);
     if (gameNameTags?.length === 0 || scoreEntryTags?.length === 0) continue;
 
     const title = gameNameTags[0].textContent.trim();
