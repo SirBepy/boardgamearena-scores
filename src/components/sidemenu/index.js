@@ -49,7 +49,7 @@ const Sidemenu = () => {
       <StyledSideMenu $isOpen={isOpen} onSubmit={onSubmit}>
         <h2>General</h2>
         <StyledGroup>
-          <label for="emptySection">Show Empty Section</label>
+          <label htmlFor="emptySection">Show Empty Section</label>
           <input
             type="checkbox"
             id="emptySection"
@@ -58,9 +58,9 @@ const Sidemenu = () => {
           />
         </StyledGroup>
         <h2>Enable games With:</h2>
-        {possiblePlayers.map((playerName) => (
-          <StyledGroup>
-            <label for={playerName}>{playerName}</label>
+        {possiblePlayers.map((playerName, index) => (
+          <StyledGroup key={`group-${index}`}>
+            <label htmlFor={playerName}>{playerName}</label>
             <input
               type="checkbox"
               id={playerName}
