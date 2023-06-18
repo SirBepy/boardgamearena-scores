@@ -2,15 +2,12 @@ import React from "react";
 import { StyledPlayerStats, StyledStatsWrapper } from "./styles";
 import { Stat } from "../";
 import storageService from "../../utils/storageService";
+import { getPercentage } from "../../utils/helpers";
 
 function AllStats(props) {
   const { totalWins, randomWins, numOfGames } = props;
   const whitelistedPlayers = storageService.getWhiteListed();
   const showRandoms = whitelistedPlayers.length === 2;
-
-  const getPercentage = (value) => {
-    return ((value / numOfGames) * 100).toFixed(1) + "%";
-  };
 
   return (
     <StyledStatsWrapper>
@@ -23,7 +20,7 @@ function AllStats(props) {
           <Stat name="Game Wins" value={totalWins[playerName]} />
           <Stat
             name="Game Winrate"
-            value={getPercentage(totalWins[playerName])}
+            value={getPercentage(numOfGames, totalWins[playerName])}
           />
           {showRandoms && (
             <>
@@ -35,9 +32,10 @@ function AllStats(props) {
               <Stat
                 name="Total Winrate"
                 value={getPercentage(
+                  numOfGames,
                   randomWins[playerName] + totalWins[playerName]
                 )}
-              />{" "}
+              />
             </>
           )}
         </StyledPlayerStats>
