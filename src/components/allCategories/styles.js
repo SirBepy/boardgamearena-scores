@@ -31,3 +31,7 @@ export const StyledCategory = styled.div`
     color: ${themeColors.secondary};
   }
 `;
+
+export const CardPercentage = styled.span`
+  color: ${themeColors.secondary};
+`

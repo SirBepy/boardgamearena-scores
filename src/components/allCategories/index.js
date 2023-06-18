@@ -1,9 +1,14 @@
 import React from "react";
 
-import { StyledCategory, StyledCategoryWrapper } from "./styles";
+import {
+  CardPercentage,
+  StyledCategory,
+  StyledCategoryWrapper,
+} from "./styles";
 import { Hoverable, useModalContext } from "../";
 import { useMinigrid } from "../../hooks/useMinigrid";
 import storageService from "../../utils/storageService";
+import { getPercentage } from "../../utils/helpers";
 
 function AllCategories(props) {
   const { parsedData } = props;
@@ -25,14 +30,17 @@ function AllCategories(props) {
         >
           <StyledCategory className="card">
             <h2>{category.title}</h2>
-
+            <h3>Number of games: {category.games.length}</h3>
             <h3>Wins</h3>
             <ol>
               {category.winsSorted?.length === 0
                 ? "No Wins"
                 : category.winsSorted.map((win, winIndex) => (
                     <li key={`win-${categoryIndex}-${winIndex}`}>
-                      {win.name}: {win.points}
+                      {win.name}: {win.points}{" "}
+                      <CardPercentage>
+                        {getPercentage(category.games.length, win.points)}
+                      </CardPercentage>
                     </li>
                   ))}
             </ol>
